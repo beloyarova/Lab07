@@ -86,104 +86,121 @@
 //     return a;
 // }
 
-// Итоговая задача
+// // Итоговая задача
 
-// 1 ref, потому что нужно изменить саму переменную сытости у вызывающего кода
-using System.Threading.Channels;
+// // 1 ref, потому что нужно изменить саму переменную сытости у вызывающего кода
+// using System.Threading.Channels;
 
-void Eat(ref int hungerLevel, int food)
+// void Eat(ref int hungerLevel, int food)
+// {
+//     hungerLevel = hungerLevel + food;
+//     if (hungerLevel > 100)
+//     {
+//         hungerLevel = 100;
+//     }
+// }
+
+// // 2 return потому что метод только считает результат
+// int Work(int hours, int stavka, int bonus)
+// {
+//     return (hours * stavka + bonus);
+// }
+
+// // 3 out и bool, потому что нужно вернуть и успех, и качество блюда
+// bool Cook(int skill, int difficulty, out int yspex)
+// {
+//     if (skill < difficulty)
+//     {
+//         yspex = 0;
+//         return false;
+//     }
+//     yspex = (skill - difficulty + 1) * 20;
+//     return true;
+// }
+
+// // 4 in, потому что структуру навыков только читаем
+// void PrintSkills(in SimSkills skills)
+// {
+//     Console.WriteLine($"Готовка: {skills.Cooking}, Фитнес: {skills.Fitness}, Логика: {skills.Logic}");
+// }
+
+// // 5 full = false, потому что подробный режим нужен не всегда
+// void Sim(string name, int level, bool full = false)
+// {
+//     if (full)
+//     {
+//         Console.WriteLine($"Сим: {name}, уровень карьеры: {level}");
+//     }
+//     else
+//     {
+//         Console.WriteLine($"Сим: {name}");
+//     }
+// }
+
+// SimSkills sim1 = new SimSkills();
+// sim1.Cooking = 5;
+// sim1.Fitness = 1;
+// sim1.Logic = 10;
+
+// SimSkills sim2 = new SimSkills();
+// sim2.Cooking = 10;
+// sim2.Fitness = 7;
+// sim2.Logic = 5;
+
+// int hunger = 40;
+// Console.WriteLine($"Сытость до еды: {hunger}");
+// Eat(ref hunger, 55);
+// Console.WriteLine($"Сытость после еды: {hunger}");
+
+// int money = Work(9, 175, 400);
+// Console.WriteLine($"Заработок за смену: {money} симолеонов");
+
+// bool Good = Cook(sim1.Cooking, 4, out int quality);
+// if (Good)
+// {
+//     Console.WriteLine($"Блюдо приготовлено качество: {quality}");
+// }
+// else
+// {
+//     Console.WriteLine("Навык готовки слишком низкий");
+// }
+
+// Good = Cook(sim2.Cooking, 15, out quality);
+// if (Good)
+// {
+//     Console.WriteLine($"Блюдо приготовлено, качество: {quality}");
+// }
+// else
+// {
+//     Console.WriteLine($"Навык готовки слишком низкий, качество: {quality}");
+// }
+
+// Console.WriteLine($"Уровень скилов персонажа 1: ");
+// PrintSkills(sim1);
+
+// Sim("Аделина", 10);
+// Sim("Настя", 20, full: true);
+
+// struct SimSkills
+// {
+//     public int Cooking;
+//     public int Fitness;
+//     public int Logic;
+// }
+
+// Самостоятельная задача Базовое
+
+using System.Runtime.CompilerServices;
+
+string First = "Кока-Кола";
+string Second = "Кофе";
+Console.WriteLine($"Избранное до: 1) {First}, 2) {Second}");
+Swap(ref First, ref Second);
+Console.WriteLine($"Избранное после: 1) {First}, 2) {Second}");
+
+void Swap(ref string a, ref string b)
 {
-    hungerLevel = hungerLevel + food;
-    if (hungerLevel > 100)
-    {
-        hungerLevel = 100;
-    }
-}
-
-// 2 return потому что метод только считает результат
-int Work(int hours, int stavka, int bonus)
-{
-    return (hours * stavka + bonus);
-}
-
-// 3 out и bool, потому что нужно вернуть и успех, и качество блюда
-bool Cook(int skill, int difficulty, out int yspex)
-{
-    if (skill < difficulty)
-    {
-        yspex = 0;
-        return false;
-    }
-    yspex = (skill - difficulty + 1) * 20;
-    return true;
-}
-
-// 4 in, потому что структуру навыков только читаем
-void PrintSkills(in SimSkills skills)
-{
-    Console.WriteLine($"Готовка: {skills.Cooking}, Фитнес: {skills.Fitness}, Логика: {skills.Logic}");
-}
-
-// 5 full = false, потому что подробный режим нужен не всегда
-void Sim(string name, int level, bool full = false)
-{
-    if (full)
-    {
-        Console.WriteLine($"Сим: {name}, уровень карьеры: {level}");
-    }
-    else
-    {
-        Console.WriteLine($"Сим: {name}");
-    }
-}
-
-SimSkills sim1 = new SimSkills();
-sim1.Cooking = 5;
-sim1.Fitness = 1;
-sim1.Logic = 10;
-
-SimSkills sim2 = new SimSkills();
-sim2.Cooking = 10;
-sim2.Fitness = 7;
-sim2.Logic = 5;
-
-int hunger = 40;
-Console.WriteLine($"Сытость до еды: {hunger}");
-Eat(ref hunger, 55);
-Console.WriteLine($"Сытость после еды: {hunger}");
-
-int money = Work(9, 175, 400);
-Console.WriteLine($"Заработок за смену: {money} симолеонов");
-
-bool Good = Cook(sim1.Cooking, 4, out int quality);
-if (Good)
-{
-    Console.WriteLine($"Блюдо приготовлено качество: {quality}");
-}
-else
-{
-    Console.WriteLine("Навык готовки слишком низкий");
-}
-
-Good = Cook(sim2.Cooking, 15, out quality);
-if (Good)
-{
-    Console.WriteLine($"Блюдо приготовлено, качество: {quality}");
-}
-else
-{
-    Console.WriteLine($"Навык готовки слишком низкий, качество: {quality}");
-}
-
-Console.WriteLine($"Уровень скилов персонажа 1: ");
-PrintSkills(sim1);
-
-Sim("Аделина", 10);
-Sim("Настя", 20, full: true);
-
-struct SimSkills
-{
-    public int Cooking;
-    public int Fitness;
-    public int Logic;
+    string temp = a;
+    a = b;
+    b = temp;
 }
